@@ -67,6 +67,9 @@ class Employee:AbstractEmployee {
                 cout << this->Name << " did not get promoted. Sry." << endl;
             }
         }
+        void Work() {
+            cout << this->Name << " is checking emails, backlog, etc." << endl;
+        }
 };
 
 // Developer inherits from Employee.
@@ -91,6 +94,9 @@ class Developer:public Employee {
         void FixBug() {
             cout << this->Name << " is fixing a bug with " << this->getFavLang() << endl;
         }
+        void Work() {
+            cout << this->Name << " is writing code in " << this->FavProgrammingLanguage << "." << endl;
+        }
 };
 
 class Manager:public Employee{
@@ -102,10 +108,14 @@ class Manager:public Employee{
                 this->Department = department;
                 this->YearsOfExperience = yearsOfExperience;
         }
+
         void PreparingMeeting() {
             cout << this->Name << " is preparing a meeting for the " << this->Department << " all hands deck thing." << endl;
             cout << "They have used their " << this->YearsOfExperience << " years of work into their meeting well." << endl;
             cout << "It was a success!" << endl;
+        }
+        void Work() {
+            cout << this->Name << " is managing the " << this->Department << " and checking emails." << endl;
         }
 };
 
@@ -128,5 +138,12 @@ int main() {
     Manager mgr = Manager("Nina", "Gurgle", 35, "Research", 10);
     mgr.PreparingMeeting();
     mgr.AskForPrmotion();
+    
+    // now the manager and devs have their own Work function
+    // instead of using the Employee Work function.
+    mgr.Work();
+    dev.Work();
+
+
     return 0;
 }
