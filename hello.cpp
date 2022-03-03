@@ -4,7 +4,20 @@ using std::string;
 using std::cout;
 using std::endl;
 
-class Employee {
+// Abstraction: only one rule
+// virtual function.
+class AbstractEmployee {
+    // contract: whichever class decides to sign contract,
+    // this uses this and signing needs to
+    // provide implementation etc
+    virtual void AskForPrmotion()=0;
+    // obligatory; force any other class sign this 
+    // give implementation details
+    // A virtual function (has no definition, as 
+    // the class inheriting it must provide its own)
+};
+
+class Employee:AbstractEmployee {
     // properties
     private:
         string Name;
@@ -44,19 +57,26 @@ class Employee {
         void Introduce() {
             cout << "My name is " << Name << " and I work at " << Company << " at " << Age << " years old. Suck it!!!" << endl;
         }
+        // need to implement or o/w get error.
+        void AskForPrmotion() {
+            if(this->Age > 30) {
+                cout << this->Name << " got promoted!" << endl;
+            } else {
+                cout << this->Name << " did not get promoted. Sry." << endl;
+            }
+        }
 };
 
 int main() {
     Employee emp1 = Employee("Bill", "Microsoft", 25);
     emp1.Introduce();
-    emp1.setAge(10); // will not change cos of the check.
+    emp1.setAge(10); // will not change cos of the check.w
     emp1.setCompany("Uber");
-    emp1.Introduce();
-    cout << emp1.getAge();
 
     Employee emp2 = Employee("John", "Amazon", 53);
     emp2.Introduce();
-    cout << emp2.getAge();
+    emp1.AskForPrmotion();
+    emp2.AskForPrmotion();
 
     return 0;
 }
